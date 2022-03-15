@@ -1,37 +1,39 @@
-import * as React from 'react';
-import { Plugin, PluginComponents } from '@devexpress/dx-react-core';
-import { monthCellsData, calculateMonthDateIntervals, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
-import { BasicView } from './basic-view';
-import { MonthViewProps } from '../types';
+import * as React from "react";
+import { Plugin, PluginComponents } from "@devexpress/dx-react-core";
+import {
+  monthCellsData,
+  calculateMonthDateIntervals,
+  VIEW_TYPES,
+} from "@devexpress/dx-scheduler-core";
+import { BasicView } from "./basic-view";
+import { MonthViewProps } from "../types";
 
-const viewCellsDataBaseComputed = (
-  cellDuration, startDayHour, endDayHour,
-) => ({ currentDate, firstDayOfWeek, intervalCount }) => monthCellsData(
-  currentDate, firstDayOfWeek, intervalCount!, Date.now(),
-);
-const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
-  appointments, startViewDate, endViewDate, excludedDays,
-}) => calculateMonthDateIntervals(
-  appointments, startViewDate, endViewDate,
-);
+const viewCellsDataBaseComputed =
+  (cellDuration, startDayHour, endDayHour) =>
+  ({ currentDate, firstDayOfWeek, intervalCount }) =>
+    monthCellsData(currentDate, firstDayOfWeek, intervalCount!, Date.now());
+const calculateAppointmentsIntervalsBaseComputed =
+  (cellDuration) =>
+  ({ appointments, startViewDate, endViewDate, excludedDays }) =>
+    calculateMonthDateIntervals(appointments, startViewDate, endViewDate);
 
 class MonthViewBase extends React.PureComponent<MonthViewProps> {
   static defaultProps: Partial<MonthViewProps> = {
     intervalCount: 1,
-    name: 'Month',
+    name: "Month",
   };
 
   static components: PluginComponents = {
-    layoutComponent: 'Layout',
-    appointmentLayerComponent: 'AppointmentLayer',
-    dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
-    dayScaleLayoutComponent: 'DayScaleLayout',
-    dayScaleCellComponent: 'DayScaleCell',
-    dayScaleRowComponent: 'DayScaleRow',
-    timeTableContainerComponent: 'TimeTableContainer',
-    timeTableLayoutComponent: 'TimeTableLayout',
-    timeTableCellComponent: 'TimeTableCell',
-    timeTableRowComponent: 'TimeTableRow',
+    layoutComponent: "Layout",
+    appointmentLayerComponent: "AppointmentLayer",
+    dayScaleEmptyCellComponent: "DayScaleEmptyCell",
+    dayScaleLayoutComponent: "DayScaleLayout",
+    dayScaleCellComponent: "DayScaleCell",
+    dayScaleRowComponent: "DayScaleRow",
+    timeTableContainerComponent: "TimeTableContainer",
+    timeTableLayoutComponent: "TimeTableLayout",
+    timeTableCellComponent: "TimeTableCell",
+    timeTableRowComponent: "TimeTableRow",
   };
 
   render() {
@@ -51,16 +53,16 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
     } = this.props;
 
     return (
-      <Plugin
-        name="MonthView"
-      >
+      <Plugin name="MonthView">
         <BasicView
           viewCellsDataComputed={viewCellsDataBaseComputed}
-          type={VIEW_TYPES.MONTH}
+          type={VIEW_TYPES.WEEK}
           name={viewName}
           intervalCount={intervalCount}
           displayName={displayName}
-          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          calculateAppointmentsIntervals={
+            calculateAppointmentsIntervalsBaseComputed
+          }
           dayScaleEmptyCellComponent={dayScaleEmptyCellComponent}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
